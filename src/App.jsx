@@ -23,6 +23,7 @@ function App() {
   });
 
   const totalFeedback = reviews.good + reviews.neutral + reviews.bad;
+  const positiveFeedback = Math.round((reviews.good / totalFeedback) * 100);
 
   const updateFeedback = (feedbackType) => () => {
     setReviews({ ...reviews, [feedbackType]: reviews[feedbackType] + 1 });
@@ -43,9 +44,9 @@ function App() {
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} />
+      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback} />
       {totalFeedback ? (
-        <Feedback {...reviews} totalFeedback={totalFeedback} />
+        <Feedback {...reviews} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback} />
       ) : (
         <Notification />
       )}
